@@ -5940,18 +5940,19 @@ const tick = () => {
 
 const tack = (dt: number) => {
 	if (!G.timeWarp) {
+		dt *= 10;
 		// Adds Resources (coins, ants, etc)
 		const timeMult = calculateTimeAcceleration().mult;
-		resourceGain(dt * timeMult * 10);
+		resourceGain(dt * timeMult);
 		// Adds time (in milliseconds) to all reset functions, and quarks timer.
-		addTimers("prestige", dt * 10);
-		addTimers("transcension", dt * 10);
-		addTimers("reincarnation", dt * 10);
-		addTimers("ascension", dt * 10);
-		addTimers("quarks", dt * 10);
-		addTimers("goldenQuarks", dt * 10);
-		addTimers("octeracts", dt * 10);
-		addTimers("singularity", dt);
+		addTimers("prestige", dt);
+		addTimers("transcension", dt);
+		addTimers("reincarnation", dt);
+		addTimers("ascension", dt);
+		addTimers("quarks", dt);
+		addTimers("goldenQuarks", dt);
+		addTimers("octeracts", dt);
+		addTimers("singularity", dt / 10);
 		addTimers("autoPotion", dt);
 		addTimers("ambrosia", dt);
 
@@ -6007,7 +6008,7 @@ const tack = (dt: number) => {
 		automaticTools("addOfferings", dt * player.cubeUpgrades[2]);
 	}
 
-	runChallengeSweep(dt);
+	runChallengeSweep(dt / 10);
 
 	// Check for automatic resets
 	// Auto Prestige. === 1 indicates amount, === 2 indicates time.
