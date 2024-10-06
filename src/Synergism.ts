@@ -5940,19 +5940,18 @@ const tick = () => {
 
 const tack = (dt: number) => {
 	if (!G.timeWarp) {
-		dt *= 10;
 		// Adds Resources (coins, ants, etc)
 		const timeMult = calculateTimeAcceleration().mult;
-		resourceGain(dt * timeMult);
+		resourceGain(dt * timeMult * 10);
 		// Adds time (in milliseconds) to all reset functions, and quarks timer.
-		addTimers("prestige", dt);
-		addTimers("transcension", dt);
-		addTimers("reincarnation", dt);
-		addTimers("ascension", dt);
-		addTimers("quarks", dt);
-		addTimers("goldenQuarks", dt);
-		addTimers("octeracts", dt);
-		addTimers("singularity", dt / 10);
+		addTimers("prestige", dt * 10);
+		addTimers("transcension", dt * 10);
+		addTimers("reincarnation", dt * 10);
+		addTimers("ascension", dt * 10);
+		addTimers("quarks", dt * 10);
+		addTimers("goldenQuarks", dt * 10);
+		addTimers("octeracts", dt * 10);
+		addTimers("singularity", dt );
 		addTimers("autoPotion", dt);
 		addTimers("ambrosia", dt);
 
@@ -5969,7 +5968,7 @@ const tack = (dt: number) => {
 		/*Triggers automatic obtainium gain if research [2x11] is unlocked,
         Otherwise it just calculates obtainium multiplier values. */
 		if (player.researches[61] === 1) {
-			automaticTools("addObtainium", dt);
+			automaticTools("addObtainium", dt * 10 );
 		} else {
 			calculateObtainium();
 		}
@@ -6000,15 +5999,15 @@ const tack = (dt: number) => {
 
 	// Adds an offering every 2 seconds
 	if (player.highestchallengecompletions[3] > 0) {
-		automaticTools("addOfferings", dt / 2);
+		automaticTools("addOfferings", dt * 10 / 2);
 	}
 
 	// Adds an offering every 1/(cube upgrade 1x2) seconds. It shares a timer with the one above.
 	if (player.cubeUpgrades[2] > 0) {
-		automaticTools("addOfferings", dt * player.cubeUpgrades[2]);
+		automaticTools("addOfferings", dt * player.cubeUpgrades[2] * 10 );
 	}
 
-	runChallengeSweep(dt / 10);
+	runChallengeSweep(dt);
 
 	// Check for automatic resets
 	// Auto Prestige. === 1 indicates amount, === 2 indicates time.
